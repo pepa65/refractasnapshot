@@ -4,15 +4,17 @@ This work was first packaged for Debian by:
 
 It was downloaded from:
 
-    https://github.com/fsmithred/refracta
+    https://github.com/pepa65/refractasnapshot
 
 Upstream Author(s):
 
     fsmithred <fsmithred@gmail.com>
+    pepa65 <solusos@passchier.net>
 
 
 Copyright:
 
+    Copyright (C) 2017 pepa65 <solusos@passchier.net>
     Copyright (C) 2011-2017 fsmithred <fsmithred@gmail.com>
     Copyright (portions) (C) 2009, 2010 Dean Linkous
 

@@ -1,12 +1,12 @@
-Source: refractasnapshot-base
-Section: unknown
+Source: refractasnapshot
+Section: misc
 Priority: extra
-Maintainer: fsmithred <fsmithred@gmail.com>
+Maintainer: pepa65 <solusos@passchier.net>
 Build-Depends: debhelper (>= 7.0.50~)
 Standards-Version: 3.9.4
-Homepage: https://github.com/fsmithred/refracta
+Homepage: https://github.com/pepa65/refractasnapshot
 
-Package: refractasnapshot-base
+Package: refractasnapshot
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends},
 	bash (>= 4.1),
@@ -20,8 +20,8 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 	live-config-sysvinit (>= 2.0.15) | live-config-systemd | live-config-upstart,
 	syslinux-common,
 	syslinux (<< 3:6.03) | syslinux (>= 3:6.03), syslinux (<< 3:6.03) | isolinux (>= 3:6.03)
-Recommends: refracta-lang (>= 1.0) | live-config-refracta (<= 0.0.4), dosfstools
-Replaces: refractasnapshot-base (<< 10.0.2), refractasnapshot (<< 9.0)
+Recommends: dosfstools
+Replaces: refractasnapshot-base (<< 10.0.3), refractasnapshot (<< 9.0)
 Description:  tool to create a live-CD from the running system
  Refracta Snapshot copies the running system, squashes the copy and
  makes an iso image file, which can be used to create a customized

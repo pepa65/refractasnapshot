@@ -1,9 +1,8 @@
-# rsync excludes file for refractasnapshot and refractasnapshot-gui
-# version 9.3.4
+# rsync excludes file for refractasnapshot
+# version 10.0.3a
 
 
-# Exclude some system files. These are required, and you probably 
-# shouldn't change them.
+# Exclude some system files. These are required, shouldn't be changed.
 
 - /dev/*
 - /cdrom/*
@@ -31,6 +30,7 @@
 - /etc/crypttab
 - /etc/initramfs-tools/conf.d/resume     # see remove-cryptroot and nocrypt.sh
 - /etc/initramfs-tools/conf.d/cryptroot  # see remove-cryptroot and nocrypt.sh
+- /etc/popularity-contest.conf
 - /home/snapshot
 
 # Added for newer version of live-config/live-boot in wheezy 
@@ -48,14 +48,13 @@
 ## files or directories, you should exclude them from being copied
 ## by adding them to this list.
 ##
-## Entries beginning with /home/*/ will affect all users.
+## Entries beginning with /home/*/ will affect all users!
 
 
 # Uncomment this to exclude everything in /var/log/
 #- /var/log/*
 
-# As of version 9.2.0, current log files are truncated,
-# and archived log files are excluded.
+# Current log files are truncated and archived log files are excluded.
 #
 # The next three lines exclude everything in /var/log
 # except /var/log/clamav/ (or anything else beginning with "c") and
@@ -80,7 +79,7 @@
 - /var/spool/mail/*
 - /var/mail/*
 - /var/backups/*.gz
-#- /var/backups/*.bak
+- /var/backups/*.bak
 - /var/lib/dbus/machine-id
 - /var/lib/live/config/*
 
@@ -140,7 +139,7 @@
 # You might want to comment these out if you're making a snapshot for
 # your own personal use, not to be shared with others.
 - /home/*/.gnupg
-- /home/*/.ssh
+#- /home/*/.ssh
 - /home/*/.xchat2
 - /home/*/.config/hexchat/logs/*
 

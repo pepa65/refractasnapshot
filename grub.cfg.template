@@ -18,38 +18,21 @@ set timeout=15
 
 menuentry "${DISTRO} (defaults) US English" {
     set gfxpayload=keep
-    linux   /live/vmlinuz boot=live ${netconfig_opt} ${username_opt}    
+    linux   /live/vmlinuz boot=live ${ifnames_opt} ${netconfig_opt} ${username_opt}
     initrd  /live/initrd.img
 }
-
-menuentry "${DISTRO} (defaults) UK English" {
-    set gfxpayload=keep
-    linux   /live/vmlinuz boot=live ${netconfig_opt} ${username_opt} lang=en_GB 
-    initrd  /live/initrd.img
-}
-
-menuentry "${DISTRO} (defaults) Espanol" {
-    set gfxpayload=keep
-    linux   /live/vmlinuz boot=live ${netconfig_opt} ${username_opt} lang=es_ES 
-    initrd  /live/initrd.img
-}
-
 
 submenu 'Advanced options ...' {
 
-    menuentry "${DISTRO} (nomodeset)" {
-	set gfxpayload=keep
-	linux   /live/vmlinuz boot=live nomodeset nouveau.modeset=0 radeon.modeset=0 vga=normal ${netconfig_opt} ${username_opt}  
-	initrd  /live/initrd.img
-    }
-    menuentry "${DISTRO} (no hardware probe)" {
-	set gfxpayload=keep
-	linux   /live/vmlinuz boot=live nocomponents=xinit noapm noapic nolapic nodma nosmp vga=normal ${netconfig_opt} ${username_opt} 
-	initrd  /live/initrd.img
-    }
     menuentry "${DISTRO} (load to RAM)" {
 	set gfxpayload=keep
-	linux   /live/vmlinuz boot=live toram ${netconfig_opt} ${username_opt}    
+	linux   /live/vmlinuz boot=live toram ${ifnames_opt} ${netconfig_opt} ${username_opt}
+	initrd  /live/initrd.img
+    }
+
+    menuentry "${DISTRO} (failsafe)" {
+	set gfxpayload=keep
+	linux   /live/vmlinuz boot=live nocomponents=xinit noapm noapic nolapic nodma nosmp forcepae nomodeset vga=normal ${ifnames_opt} ${netconfig_opt} ${username_opt}
 	initrd  /live/initrd.img
     }
 

@@ -12,6 +12,5 @@
 %:
 
 	chmod 0655 "$(CURDIR)/refractasnapshot"
-	chmod 0655 "$(CURDIR)/nocrypt.sh"
 	
 	dh $@ 

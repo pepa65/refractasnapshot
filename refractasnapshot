@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-version="refractasnapshot-10.0.2 (20170204)"
+version="refractasnapshot-10.0.2a"
 
 TEXTDOMAIN=refractasnapshot-base
 TEXTDOMAINDIR=/usr/share/locale/
@@ -87,12 +86,6 @@ while [[ $1 == -* ]]; do
 done		
 
 
-##### This can be removed from the final version
-if ! [[ -d /usr/lib/refractasnapshot/iso/live ]]; then
-	mkdir -p /usr/lib/refractasnapshot/iso/live
-fi
-
-
 # Check that user is root.
 [[ $(id -u) -eq 0 ]] || { echo -e "\n\t You need to be root!\n" ; exit 1 ; }
 
@@ -141,17 +134,18 @@ if [[ $make_efi = "yes" ]] ; then
 	fi
 fi
 
-
 find_text_editor () {
 	
-# Default text editor is nano. Make sure it exists if user intends to  ### This needs attention!!!   <<<<<<<<<
+# Default text editor is nano. Make sure it exists if user intends to
 # edit files before squashing the filesystem.
-#if [[ $edit_boot_menu = "yes" ]] ; then
-	[[ -e $text_editor ]] || { echo -e $"\n Error! The text editor is set to ${text_editor},
- but it is not installed. Edit $configfile
- and set the text_editor variable to the editor of your choice.
- (examples: /usr/bin/vim, /usr/bin/joe)\n" ; exit 1 ; }
-#fi
+[[ $edit_boot_menu = "yes" ]] &&
+	type -p $text_editor >/dev/null || {
+		echo -e $"
+ Error! The text editor is set to $text_editor, but it is not installed.
+ Edit $configfile and set the text_editor variable to the editor of your choice.
+ Examples: /usr/bin/vi /usr/bin/nano\n"
+		exit 1
+	}
 }
 
 
@@ -344,10 +338,7 @@ while true; do
 	  1) # Create snapshot
 		set_distro_name
 		housekeeping
-		
-		if [[ $initrd_crypt = "yes" ]] ; then
-			prepare_initrd_crypt
-		fi
+		prepare_initrd_crypt
 		
 		# The real work starts here 01
 		cd "$work_dir"
@@ -363,14 +354,12 @@ while true; do
 		
 		add_extras
 		set_boot_options
-		
-		if [[ $edit_boot_menu = "yes" ]] ; then
-			edit_boot_menus
-		fi
+		nocrypt
+		edit_boot_menus
 		
 		squash_filesystem
 		make_iso_fs
-		#cleanup
+		cleanup
 		final_message
 	
 		exit 0 ;;
@@ -382,6 +371,7 @@ while true; do
 		# The real work starts here 02
 		cd "$work_dir"
 		get_filename
+		edit_boot_menus
 		squash_filesystem
 		make_iso_fs
 		final_message
@@ -529,7 +519,6 @@ if [[ $initrd_crypt = "yes" ]] ; then
 	fi	
 fi
 }
-
 
 # The real work starts here
 cd "$work_dir"
@@ -791,7 +780,7 @@ pushd "$efi_work"
 	
 	# if this doesn't work try another font from the same place (grub's default, unicode.pf2, is much larger)
 	# Either of these will work, and they look the same to me. Unicode seems to work with qemu. -fsr
-#	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
+	#cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
 	cp /usr/share/grub/unicode.pf2 /boot/grub/font.pf2
 	
 	# doesn't need to be root-owned
@@ -836,19 +825,10 @@ fi
 
 
 set_boot_options () {
-# Create the boot menu unless iso_dir is not default.       
-#if [[ -n "$DISTRO" ]] ; then  ##### WRONG! $DISTRO is never null!
-#	live_config_version=$(dpkg -l live-config | awk '/live-config/ { print $3 }' | cut -d. -f1)
-#	if [[ $live_config_version -gt 3 ]] ; then
-#		CONFIGS="components"
-#	else
-#		CONFIGS="config"
-#	fi
 if [ "$iso_dir" = "/usr/lib/refractasnapshot/iso" ] ; then
 	sed -i "s:\${DISTRO}:$DISTRO:g" "$work_dir"/iso/isolinux/"$boot_menu"
 	sed -i "s:\${netconfig_opt}:$netconfig_opt:g" "$work_dir"/iso/isolinux/"$boot_menu"
 	sed -i "s:\${username_opt}:$username_opt:g" "$work_dir"/iso/isolinux/"$boot_menu"
-#	sed -i "s:\${CONFIGS}:$CONFIGS:g" "$work_dir"/iso/isolinux/"$boot_menu"
 fi
 
 if [[ $make_efi = "yes" ]] ; then
@@ -857,6 +837,31 @@ if [[ $make_efi = "yes" ]] ; then
 	sed -i "s:\${username_opt}:$username_opt:g" "$work_dir"/iso/boot/grub/grub.cfg
 fi
 
+}
+
+nocrypt () {
+# Assuming that when /dev/mapper/devuan--vg-root is present, it is encrypted
+# (it could be named differently, or it could just be unencrypted lvm2)
+if [[ -e /dev/mapper/devuan--vg-root ]]; then
+	initrd_dir=$(mktemp -d)
+	cd "$initrd_dir"
+	fakeroot zcat /initrd.img | cpio -i
+	
+	if [[ -f conf/conf.d/cryptroot ]]; then
+		echo "Removing cryptroot from initrd"
+		rm -f conf/conf.d/cryptroot
+	fi
+	if [[ -f conf/conf.d/resume ]]; then
+		echo "Removing resume from initrd"
+		rm -f conf/conf.d/resume
+	fi
+	
+	fakeroot find . -print0 | cpio -0 -H newc -o | gzip -c >initrd.img
+	mv initrd.img "$work_dir"/iso/live/
+	
+	cd -
+	rm -r -- "$initrd_dir"
+fi
 }
 
 
@@ -944,8 +949,6 @@ if [[ $save_work = "no" ]]; then
     echo $"Cleaning..."
     cd /
     rm -rf "$work_dir"
-#else
-#    rm "$work_dir"/iso/live/filesystem.squashfs
 fi
 }
 
@@ -957,5 +960,4 @@ check_copies
 check_directories
 check_space
 report_space
-
 

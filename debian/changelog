@@ -1,3 +1,38 @@
+refractasnapshot (10.0.3a) unstable; urgency=low
+
+  * Removed reference to refractasnapshot-base/gui
+  * Removed extraneous files
+  * Integrated nocrypt.sh
+
+ -- pepa65 <solusos@passchier.net>
+
+refractasnapshot-base (10.0.3) unstable; urgency=low
+
+  * Re-enabled cleanup option in '01 Create a snapshot'
+  * Added /etc/popularity-contest.conf to excludes.
+  * Fixed removal of NetworkManager/system-connections/* 
+  * Media volume is is now a variable in config file.
+
+ -- fsmithred <fsmithred@gmail.com>
+
+refractasnapshot-base (10.0.2+devuan1.2) unstable; urgency=medium
+
+  * UNRELEASED
+
+ -- fsmithred <fsmithred@gmail.com>  Fri, 07 Apr 2017 07:04:25 -0400
+
+refractasnapshot-base (10.0.2+devuan1.2) unstable; urgency=medium
+
+  * initial commit
+
+ -- fsmithred <fsmithred@gmail.com>  Fri, 07 Apr 2017 06:58:17 -0400
+
+refractasnapshot-base (10.0.2+devuan1.1) unstable; urgency=medium
+
+  * initial commit
+
+ -- fsmithred <fsmithred@gmail.com>  Thu, 06 Apr 2017 19:51:44 -0400
+
 refractasnapshot-base (10.0.2) unstable; urgency=low
 
   * Oops! 10.0.1 was uploaded too soon.
@@ -5,7 +40,6 @@ refractasnapshot-base (10.0.2) unstable; urgency=low
   * Other than that, same as 10.0.1
 
  -- fsmithred <fsmithred@gmail.com>  Sat, 04 Feb 2017 10:50:00 -0500
-
 
 
 refractasnapshot-base (10.0.1) unstable; urgency=low
@@ -20,7 +54,6 @@ refractasnapshot-base (10.0.1) unstable; urgency=low
  -- fsmithred <fsmithred@gmail.com>  Sat, 04 Feb 2017 10:00:00 -0500
 
 
-
 refractasnapshot-base (10.0.0) unstable; urgency=low
 
   * Recommends refracta-lang or live-config-refracta (<= 0.0.4) to 
@@ -28,7 +61,6 @@ refractasnapshot-base (10.0.0) unstable; urgency=low
   * Restored boot menu templates to use $DISTRO, netconfig and username.
 
  -- fsmithred <fsmithred@gmail.com>  Mon, 10 Oct 2016 21:50:00 -0400
-
 
 
 refractasnapshot-base (9.3.4+10.0.0beta05) unstable; urgency=low
@@ -41,7 +73,6 @@ refractasnapshot-base (9.3.4+10.0.0beta05) unstable; urgency=low
  -- fsmithred <fsmithred@gmail.com>  Thu, 06 Oct 2016 17:10:00 -0400
 
 
-
 refractasnapshot-base (9.3.4+10.0.0beta03) unstable; urgency=low
 
   * Added modules to the efi boot image for more commands at grub prompt
@@ -50,14 +81,12 @@ refractasnapshot-base (9.3.4+10.0.0beta03) unstable; urgency=low
  -- fsmithred <fsmithred@gmail.com>  Wed, 03 Aug 2016 20:10:00 -0400
 
 
-
 refractasnapshot-base (9.3.4+10.0.0beta02) unstable; urgency=low
 
   * Fixed xorriso options so isohybrid usb will boot with uefi.
   * Config file is now required. 
 
  -- fsmithred <fsmithred@gmail.com>  Sat, 11 Jun 2016 11:50:00 -0400
-
 
 
 refractasnapshot-base (9.3.4+10.0.0beta01) unstable; urgency=low
@@ -79,13 +108,11 @@ refractasnapshot-base (9.3.4) unstable; urgency=low
  -- fsmithred <fsmithred@gmail.com>  Sun, 29 May 2016 11:20:00 -0400
 
 
-
 refractasnapshot-base (9.3.3) unstable; urgency=low
 
   * username=<username> added to boot menu if name is not "user".  
 
  -- fsmithred <fsmithred@gmail.com>  Sat, 07 May 2016 12:50:00 -0400
-
 
 
 refractasnapshot-base (9.3.2) unstable; urgency=low
@@ -96,14 +123,12 @@ refractasnapshot-base (9.3.2) unstable; urgency=low
  -- fsmithred <fsmithred@gmail.com>  Sun, 21 Feb 2016 21:40:00 -0500
 
 
-
 refractasnapshot-base (9.3.1) unstable; urgency=low
 
   * Renamed memtest86+.bin to memtest on live media, so it works.
   * Removed "union=aufs" from boot commands. (for stretch/sid)    
 
  -- fsmithred <fsmithred@gmail.com>  Wed, 17 Feb 2016 21:35:00 -0500
-
 
 
 refractasnapshot-base (9.3.0) unstable; urgency=low
@@ -115,26 +140,21 @@ refractasnapshot-base (9.3.0) unstable; urgency=low
  -- fsmithred <fsmithred@gmail.com>  Fri, 05 Feb 2016 15:48:00 -0500
 
 
-
 refractasnapshot-base (9.2.2) unstable; urgency=low
 
   * Added reminder to turn off numlock.
   * Fixed stdmenu.cfg to point to isolinux subdirectory for splash image. 
   * Added code from live-build to blank systemd's /etc/machine-id
   
-
  -- fsmithred <fsmithred@gmail.com>  Fri, 05 Feb 2016 12:08:00 -0500
  
  
-
 refractasnapshot-base (9.2.1) unstable; urgency=low
 
   * Added support for Gnome NetworkManager connection information.
   * Fixed bug in 9.2.0 that deleted the system network connections instead of the work_dir copy.
 
-
  -- fsmithred <fsmithred@gmail.com>  Sun, 23 Aug 2015 07:45:00 -0400
-
 
 
 refractasnapshot-base (9.2.0) unstable; urgency=low
@@ -144,18 +164,14 @@ refractasnapshot-base (9.2.0) unstable; urgency=low
   * Added option to add CRYPTSETUP=y to initrd.  (and test for which update-initramfs to use)
   * Added option to copy network configs to snapshot and include ip=frommedia in the boot menu, else existing configs get wiped.
 
-
  -- fsmithred <fsmithred@gmail.com>  Fri, 24 Jul 2015 12:02:00 -0400
-
 
 
 refractasnapshot-base (9.1.6-2) unstable; urgency=low
 
   * Check for /usr/lib/syslinux/isohdpfx.bin
 
-
  -- fsmithred <fsmithred@gmail.com>  Sun, 15 Mar 2015 20:25:00 -0400
-
 
 
 refractasnapshot-base (9.1.6-1) unstable; urgency=low

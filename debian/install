@@ -1,9 +1,6 @@
 refractasnapshot.conf etc
 refractasnapshot usr/bin
 snapshot_exclude.list usr/lib/refractasnapshot
-snapshot_exclude.list.defaults usr/lib/refractasnapshot
 iso/* usr/lib/refractasnapshot/iso
-nocrypt.sh usr/lib/refractasnapshot
 boot_help/* usr/lib/refractasnapshot/boot_help
 grub.cfg.template usr/lib/refractasnapshot
-
